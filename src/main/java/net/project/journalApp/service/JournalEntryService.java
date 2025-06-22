@@ -1,6 +1,6 @@
 package net.project.journalApp.service;
 
-
+import lombok.extern.slf4j.Slf4j;
 import net.project.journalApp.entity.JournalEntry;
 import net.project.journalApp.entity.User;
 import net.project.journalApp.repository.JournalEntryRepository;
@@ -26,7 +26,7 @@ public class JournalEntryService {
 
 
 
-    @Transactional
+
     public void saveEntry(JournalEntry journalEntry, String userName) {
         try {
             User user = userService.findByUserName(userName);
@@ -35,6 +35,7 @@ public class JournalEntryService {
             user.getJournalEntries().add(saved);
             userService.saveUser(user);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException("An error occurred while saving the entry.", e);
         }
     }
